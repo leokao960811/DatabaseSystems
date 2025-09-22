@@ -45,12 +45,15 @@ def create_table():
             )
         """)
         conn.commit()
-        return "Table 'users' created successfully with new schema!"
+        #return "Table 'users' created successfully with new schema!"
+        return render_template('create_table.html')
     except mysql.connector.Error as err:
         return f"Error creating table: {err}"
     finally:
         cursor.close()
         conn.close()
+
+    
 
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
