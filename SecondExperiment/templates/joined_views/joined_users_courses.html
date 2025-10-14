@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Users and Joined Courses{% endblock %}
+
+{% block content %}
+    <h2>Users and Joined Courses</h2>
+    {% if data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Account Name</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Course Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.user_id }}</td>
+                    <td>{{ row.account_name }}</td>
+                    <td>{{ row.course_id }}</td>
+                    <td>{{ row.course_name }}</td>
+                    <td>{{ row.time if row.time else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No data found for users and joined courses.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Departments{% endblock %}
+
+{% block content %}
+    <h2>Departments</h2>
+
+    <h3>Add New Department</h3>
+    <form method="POST" action="{{ url_for('departments.manage_departments') }}"> {# UPDATED #}
+        <label for="name">Department Name:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Add Department</button>
+    </form>
+
+    <h3>Existing Departments</h3>
+    {% if departments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dept in departments %}
+                <tr>
+                    <td>{{ dept.department_id }}</td>
+                    <td>{{ dept.name }}</td>
+                    <td>
+                        <form class="delete-form" method="POST" action="{{ url_for('departments.delete_department', department_id=dept.department_id) }}"> {# UPDATED #}
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No departments found.</p>
+    {% endif %}
+{% endblock %}

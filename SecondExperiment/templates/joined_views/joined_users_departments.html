@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Users with Departments{% endblock %}
+
+{% block content %}
+    <h2>Users with Departments</h2>
+    {% if data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Account Name</th>
+                    <th>Email Address</th>
+                    <th>Department Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.user_id }}</td>
+                    <td>{{ row.account_name }}</td>
+                    <td>{{ row.email_address }}</td>
+                    <td>{{ row.department_name if row.department_name else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No data found for users and departments.</p>
+    {% endif %}
+{% endblock %}

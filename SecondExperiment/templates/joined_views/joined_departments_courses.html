@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Departments with Courses{% endblock %}
+
+{% block content %}
+    <h2>Departments with Courses</h2>
+    {% if data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Department ID</th>
+                    <th>Department Name</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.department_id }}</td>
+                    <td>{{ row.department_name }}</td>
+                    <td>{{ row.course_id if row.course_id else 'N/A' }}</td>
+                    <td>{{ row.course_name if row.course_name else 'N/A' }}</td>
+                    <td>{{ row.description if row.description else 'N/A' }}</td>
+                    <td>{{ row.time if row.time else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No data found for departments and courses.</p>
+    {% endif %}
+{% endblock %}

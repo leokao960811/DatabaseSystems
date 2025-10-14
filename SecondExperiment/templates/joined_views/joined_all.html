@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}All Joined Data{% endblock %}
+
+{% block content %}
+    <h2>All Joined Data</h2>
+    <p>Shows users, their department, the courses they've joined, and the department offering each course.</p>
+    {% if data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Account Name</th>
+                    <th>Email</th>
+                    <th>User Dept.</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Course Time</th>
+                    <th>Course Dept.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.user_id }}</td>
+                    <td>{{ row.account_name }}</td>
+                    <td>{{ row.email_address }}</td>
+                    <td>{{ row.user_department_name if row.user_department_name else 'N/A' }}</td>
+                    <td>{{ row.course_id if row.course_id else 'N/A' }}</td>
+                    <td>{{ row.course_name if row.course_name else 'N/A' }}</td>
+                    <td>{{ row.time if row.time else 'N/A' }}</td>
+                    <td>{{ row.course_offering_department if row.course_offering_department else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No comprehensive joined data found.</p>
+    {% endif %}
+{% endblock %}
