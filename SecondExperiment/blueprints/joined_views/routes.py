@@ -36,11 +36,12 @@ def departments_courses():
             C.time
         FROM
             Department AS D
-        LEFT JOIN
+        RIGHT JOIN  -- Keeps all courses, even if their department is not found
             Course AS C ON D.department_id = C.department_id
+        ORDER BY D.department_id, C.course_id
     """
     data = execute_query(query)
-    return render_template('joined_views/joined_departments_courses.html', data=data)
+    return render_template('joined_views/joined_departments_courses.html', data=data) 
 
 @joined_views_bp.route('/users_courses')
 def users_courses():
@@ -54,10 +55,11 @@ def users_courses():
             C.time
         FROM
             User AS U
-        JOIN
+        INNER JOIN  -- Only users who have actually joined courses
             User_Courses AS UC ON U.user_id = UC.user_id
-        JOIN
+        INNER JOIN  -- Only courses that exist and are joined
             Course AS C ON UC.course_id = C.course_id
+        ORDER BY U.user_id, C.course_id
     """
     data = execute_query(query)
     return render_template('joined_views/joined_users_courses.html', data=data)
@@ -89,3 +91,31 @@ def all_joined_data():
     """
     data = execute_query(query)
     return render_template('joined_views/joined_all.html', data=data)
+
+@joined_views_bp.route('/all_inner')
+def all_joined_data_inner():
+    execute_query = get_db_query_executor()
+    query = """
+        SELECT
+            U.user_id,
+            U.account_name,
+            U.email_address,
+            D_User.name AS user_department_name,
+            C.course_id,
+            C.name AS course_name,
+            C.time,
+            D_Course.name AS course_offering_department
+        FROM
+            User AS U
+        INNER JOIN
+            Department AS D_User ON U.department_id = D_User.department_id
+        INNER JOIN
+            User_Courses AS UC ON U.user_id = UC.user_id
+        INNER JOIN
+            Course AS C ON UC.course_id = C.course_id
+        INNER JOIN
+            Department AS D_Course ON C.department_id = D_Course.department_id
+        ORDER BY U.user_id, C.course_id;
+    """
+    data = execute_query(query)
+    return render_template('joined_views/joined_all.html', data=data) # Can reuse the same template
