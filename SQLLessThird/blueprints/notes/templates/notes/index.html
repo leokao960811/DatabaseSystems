@@ -1,0 +1,32 @@
+{% extends 'notes/base.html' %}
+
+{% block title %}All Notes{% endblock %}
+
+{% block content %}
+    <h1>My Notes</h1>
+    <a href="{{ url_for('notes.create_note') }}" class="button">Create New Note</a>
+    {% if notes %}
+        <ul class="note-list">
+            {% for note in notes %}
+                <li class="note-item">
+                    <div class="note-header">
+                        <span class="note-id">ID: {{ note._id }}</span>
+                        <span class="note-time-created">Created: {{ note.time_created.strftime('%Y-%m-%d %H:%M') }}</span>
+                    </div>
+                    <p class="note-text">{{ note.text }}</p>
+                    {% if note.appointed_time %}
+                        <p class="note-appointed-time">Appointed Time: {{ note.appointed_time.strftime('%Y-%m-%d %H:%M') }}</p>
+                    {% endif %}
+                    <div class="note-actions">
+                        <a href="{{ url_for('notes.edit_note', id=note._id) }}" class="button edit">Edit</a>
+                        <form action="{{ url_for('notes.delete_note', id=note._id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="button delete" onclick="return confirm('Are you sure you want to delete this note?');">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notes yet. <a href="{{ url_for('notes.create_note') }}">Create one!</a></p>
+    {% endif %}
+{% endblock %}

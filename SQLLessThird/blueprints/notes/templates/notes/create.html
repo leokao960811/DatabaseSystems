@@ -1,0 +1,17 @@
+{% extends 'notes/base.html' %}
+
+{% block title %}Create Note{% endblock %}
+
+{% block content %}
+    <h1>Create New Note</h1>
+    <form method="POST" action="{{ url_for('notes.create_note') }}">
+        <label for="text">Note Text:</label><br>
+        <textarea id="text" name="text" rows="5" required></textarea><br><br>
+
+        <label for="appointed_time">Appointed Time (Optional):</label><br>
+        <input type="datetime-local" id="appointed_time" name="appointed_time"><br><br>
+
+        <button type="submit" class="button">Add Note</button>
+        <a href="{{ url_for('notes.list_notes') }}" class="button cancel">Cancel</a>
+    </form>
+{% endblock %}
