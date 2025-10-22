@@ -14,4 +14,8 @@ Video Link: https://youtu.be/Ux13BaWbo2I
 ER Model:
 <img width="946" height="706" alt="螢幕擷取畫面 2025-10-13 094344" src="https://github.com/user-attachments/assets/df020b15-f597-4f01-b5e2-074c4c12dd9a" />
 
+# SQLLessThird
+This is the HW3 project, using MongoDB to create a database, and do CRUD operations.
+Video Link: https://youtu.be/dxkGntH4vNo
+
 
