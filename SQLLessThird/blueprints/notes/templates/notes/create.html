@@ -1,9 +1,9 @@
 {% extends 'notes/base.html' %}
 
-{% block title %}Create Note{% endblock %}
+{% block title %}Create Single Note{% endblock %}
 
 {% block content %}
-    <h1>Create New Note</h1>
+    <h1>Create Single Note</h1>
     <form method="POST" action="{{ url_for('notes.create_note') }}">
         <label for="text">Note Text:</label><br>
         <textarea id="text" name="text" rows="5" required></textarea><br><br>
