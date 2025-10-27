@@ -19,6 +19,6 @@ This is the HW3 project, using MongoDB to create a database, and do CRUD operati
 
 This project is pushed onto Render here: https://notes-database.onrender.com
 
-Video Link: TBA
+Video Link: https://www.youtube.com/watch?v=x4w079vdw9I&t=635s
 
 
