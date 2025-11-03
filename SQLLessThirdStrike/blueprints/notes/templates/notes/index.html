@@ -1,0 +1,127 @@
+{% extends 'notes/base.html' %}
+
+{% block title %}All Notes{% endblock %}
+
+{% block content %}
+    <h1>My Notes</h1>
+    <div class="controls">
+        <a href="{{ url_for('notes.create_note') }}" class="button">Create Single Note</a>
+        <a href="{{ url_for('notes.bulk_create_notes') }}" class="button">Bulk Create Notes</a>
+    </div>
+
+    <div class="search-sort-container">
+        <form action="{{ url_for('notes.list_notes') }}" method="GET" class="search-form">
+            <input type="text" name="search" placeholder="Search notes..." value="{{ search_query }}">
+            <button type="submit" class="button">Search</button>
+            {% if search_query %}
+                <a href="{{ url_for('notes.list_notes', sort_by=sort_by, sort_order=sort_order) }}" class="button cancel">Clear Search</a>
+            {% endif %}
+        </form>
+
+        <div class="sort-controls">
+            <span>Sort by:</span>
+            <form id="sortForm" action="{{ url_for('notes.list_notes', search=search_query) }}" method="GET" style="display:inline;">
+                <select onchange="this.form.submit()" name="sort_by">
+                    <option value="time_created" {% if sort_by == 'time_created' %}selected{% endif %}>Date Created</option>
+                    <option value="text" {% if sort_by == 'text' %}selected{% endif %}>Content</option>
+                    <option value="appointed_time" {% if sort_by == 'appointed_time' %}selected{% endif %}>Appointed Time</option>
+                </select>
+                <select onchange="this.form.submit()" name="sort_order">
+                    <option value="desc" {% if sort_order == 'desc' %}selected{% endif %}>Descending</option>
+                    <option value="asc" {% if sort_order == 'asc' %}selected{% endif %}>Ascending</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <form action="{{ url_for('notes.bulk_actions') }}" method="POST" id="bulkActionsForm">
+        <div class="bulk-actions-container">
+            <input type="checkbox" id="selectAllNotes"> <label for="selectAllNotes">Select All</label>
+            <select name="action" id="bulkActionSelect">
+                <option value="">Choose Action...</option>
+                <option value="delete">Delete Selected</option>
+                <option value="update_time">Set Appointed Time for Selected</option>
+                <option value="clear_time">Clear Appointed Time for Selected</option>
+            </select>
+            <input type="datetime-local" name="bulk_appointed_time" id="bulkAppointedTime" style="display:none;">
+            <button type="submit" class="button" onclick="return confirmBulkAction();">Apply</button>
+        </div>
+
+        {% if notes %}
+            <ul class="note-list">
+                {% for note in notes %}
+                    <li class="note-item">
+                        <input type="checkbox" name="selected_notes" value="{{ note._id }}" class="note-checkbox">
+                        <div class="note-content"> {# Wrap existing content for better layout #}
+                            <div class="note-header">
+                                <span class="note-id">ID: {{ note._id }}</span>
+                                <span class="note-time-created">Created: {{ note.time_created.strftime('%Y-%m-%d %H:%M') }}</span>
+                            </div>
+                            <p class="note-text">{{ note.text }}</p>
+                            {% if note.appointed_time %}
+                                <p class="note-appointed-time">Appointed Time: {{ note.appointed_time.strftime('%Y-%m-%d %H:%M') }}</p>
+                            {% endif %}
+                            <div class="note-actions">
+                                <a href="{{ url_for('notes.edit_note', id=note._id) }}" class="button edit">Edit</a>
+                                <form action="{{ url_for('notes.delete_note', id=note._id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="button delete" onclick="return confirm('Are you sure you want to delete this note?');">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No notes yet. <a href="{{ url_for('notes.create_note') }}">Create one!</a></p>
+        {% endif %}
+    </form>
+
+    <script>
+        // JavaScript for "Select All" checkbox
+        document.getElementById('selectAllNotes').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.note-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+
+        // JavaScript to show/hide datetime-local input for bulk update
+        document.getElementById('bulkActionSelect').addEventListener('change', function() {
+            const bulkAppointedTimeInput = document.getElementById('bulkAppointedTime');
+            if (this.value === 'update_time') {
+                bulkAppointedTimeInput.style.display = 'inline-block';
+                bulkAppointedTimeInput.setAttribute('required', 'required');
+            } else {
+                bulkAppointedTimeInput.style.display = 'none';
+                bulkAppointedTimeInput.removeAttribute('required');
+            }
+        });
+
+        // JavaScript for bulk action confirmation
+        function confirmBulkAction() {
+            const selectedAction = document.getElementById('bulkActionSelect').value;
+            const selectedNotesCount = document.querySelectorAll('.note-checkbox:checked').length;
+
+            if (selectedNotesCount === 0) {
+                alert('Please select at least one note for the bulk action.');
+                return false;
+            }
+
+            if (selectedAction === 'delete') {
+                return confirm(`Are you sure you want to delete ${selectedNotesCount} selected note(s)?`);
+            } else if (selectedAction === 'update_time') {
+                const appointedTime = document.getElementById('bulkAppointedTime').value;
+                if (!appointedTime) {
+                    alert('Please select an appointed time for the bulk update.');
+                    return false;
+                }
+                return confirm(`Are you sure you want to set the appointed time to ${appointedTime} for ${selectedNotesCount} selected note(s)?`);
+            } else if (selectedAction === 'clear_time') {
+                return confirm(`Are you sure you want to clear the appointed time for ${selectedNotesCount} selected note(s)?`);
+            } else {
+                alert('Please choose a valid bulk action.');
+                return false;
+            }
+        }
+    </script>
+{% endblock %}
