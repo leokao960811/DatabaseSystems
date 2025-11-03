@@ -1,0 +1,16 @@
+{% extends 'notes/base.html' %}
+
+{% block title %}Bulk Create Notes{% endblock %}
+
+{% block content %}
+    <h1>Bulk Create Notes (JSON)</h1>
+    <p>Enter a JSON array of note objects. Each object should have a "text" field and can optionally have an "appointed_time" field.</p>
+    <p>The "appointed_time" should be in `YYYY-MM-DDTHH:MM` format (e.g., "2024-03-15T10:00").</p>
+    <form method="POST" action="{{ url_for('notes.bulk_create_notes') }}">
+        <label for="json_notes">JSON Notes:</label><br>
+        <textarea id="json_notes" name="json_notes" rows="15" placeholder="Enter your JSON array of notes here..." required>{{ default_json_prompt if default_json_prompt else '' }}</textarea><br><br>
+
+        <button type="submit" class="button">Add Notes (Bulk)</button>
+        <a href="{{ url_for('notes.list_notes') }}" class="button cancel">Cancel</a>
+    </form>
+{% endblock %}

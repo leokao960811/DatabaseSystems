@@ -1,0 +1,233 @@
+/* static/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #0056b3;
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button.edit {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.button.edit:hover {
+    background-color: #e0a800;
+}
+
+.button.delete {
+    background-color: #dc3545;
+}
+
+.button.delete:hover {
+    background-color: #c82333;
+}
+
+.button.cancel {
+    background-color: #6c757d;
+}
+
+.button.cancel:hover {
+    background-color: #5a6268;
+}
+
+.note-list {
+    list-style: none;
+    padding: 0;
+}
+
+.note-item {
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.note-text {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    white-space: pre-wrap; /* Preserve whitespace and line breaks */
+}
+
+.note-appointed-time {
+    font-style: italic;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.note-actions {
+    text-align: right;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+form input[type="text"],
+form textarea,
+form input[type="datetime-local"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.flashes li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.flashes .success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.flashes .danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+/* Add to static/css/style.css */
+
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-sort-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 10px; /* Space between items */
+}
+
+.search-form {
+    display: flex;
+    gap: 5px;
+    flex-grow: 1; /* Allow search form to take available space */
+}
+
+.search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.sort-controls select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.bulk-actions-container {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f0f8ff; /* Light blue background */
+    border: 1px solid #cceeff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.note-item {
+    display: flex; /* Use flexbox for checkbox and content */
+    align-items: flex-start; /* Align items at the top */
+    gap: 10px; /* Space between checkbox and content */
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.note-item .note-checkbox {
+    margin-top: 5px; /* Adjust checkbox vertical alignment */
+    transform: scale(1.2); /* Make checkbox a bit larger */
+}
+
+.note-item .note-content {
+    flex-grow: 1; /* Allow content to take remaining space */
+}

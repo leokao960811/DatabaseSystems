@@ -1,0 +1,10 @@
+<!-- templates/index.html -->
+{% extends 'notes/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <h1>Welcome to your Flask Notes App!</h1>
+    <p>This application allows you to create, read, update, and delete notes.</p>
+    <p>Navigate to <a href="{{ url_for('notes.list_notes') }}">My Notes</a> to get started.</p>
+{% endblock %}
