@@ -15,8 +15,10 @@ ER Model:
 <img width="946" height="706" alt="螢幕擷取畫面 2025-10-13 094344" src="https://github.com/user-attachments/assets/df020b15-f597-4f01-b5e2-074c4c12dd9a" />
 
 # SQLLessThird
-This is the HW3 project, using MongoDB to create a database, and do CRUD operations.
+This is the HW3 project, using MongoDB to create a database, and do CRUD operations, including bulk inserting.
 
-Video Link: https://youtu.be/dxkGntH4vNo
+This project is pushed onto Render here: https://notes-database.onrender.com
+
+Video Link: https://www.youtube.com/watch?v=x4w079vdw9I&t=635s
 
 
