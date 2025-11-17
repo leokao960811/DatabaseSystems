@@ -21,6 +21,8 @@ This project is pushed onto Render here: https://notes-database.onrender.com
 
 Video Link: https://www.youtube.com/watch?v=x4w079vdw9I&t=635s
 
-A local version with additional features, SQLLessThirdStrike, is avaliable as a folder as well.
+# SQLLessThirdStrike
+This is the HW4 project, which is a local version of HW3 with additional features such as searching notes and multi-deletion.
 
+Video Link: https://www.youtube.com/watch?v=_pi1G5vToN4&t=388s
 
